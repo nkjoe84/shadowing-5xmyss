@@ -57,6 +57,62 @@
     );
   }
 
+  /* ======================= Study progress (localStorage) ======================= */
+
+  const PROGRESS_KEY = "shadowing.progress.v1";
+
+  function loadAllProgress() {
+    try {
+      const all = JSON.parse(localStorage.getItem(PROGRESS_KEY) || "{}");
+      return all && typeof all === "object" ? all : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function getProgress(lessonId) {
+    const p = loadAllProgress()[lessonId] || {};
+    return {
+      done: Array.isArray(p.done) ? p.done.filter(function (n) { return Number.isInteger(n) && n >= 0; }) : [],
+      last: Number.isInteger(p.last) && p.last >= 0 ? p.last : 0,
+      updated: Number(p.updated) || 0,
+    };
+  }
+
+  function saveProgress(lessonId, progress) {
+    try {
+      const all = loadAllProgress();
+      all[lessonId] = { done: progress.done, last: progress.last, updated: Date.now() };
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
+    } catch (e) {
+      /* storage unavailable: progress just won't persist */
+    }
+  }
+
+  function clearProgress(lessonId) {
+    try {
+      const all = loadAllProgress();
+      delete all[lessonId];
+      localStorage.setItem(PROGRESS_KEY, JSON.stringify(all));
+    } catch (e) {
+      /* ignore */
+    }
+  }
+
+  function formatAgo(ts) {
+    if (!ts) return "";
+    const diff = Math.max(0, Date.now() - ts);
+    const min = Math.floor(diff / 60000);
+    if (min < 1) return "방금 전";
+    if (min < 60) return min + "분 전";
+    const h = Math.floor(min / 60);
+    if (h < 24) return h + "시간 전";
+    const d = Math.floor(h / 24);
+    if (d < 30) return d + "일 전";
+    const dt = new Date(ts);
+    return dt.getFullYear() + "." + (dt.getMonth() + 1) + "." + dt.getDate();
+  }
+
   /* ======================= Home page ======================= */
 
   const homeMode = { editable: false, pagesUrl: "" };
@@ -128,6 +184,10 @@
     }
 
     await refreshLessonList();
+    // Coming back from a lesson via the back button may restore a cached page: refresh progress.
+    window.addEventListener("pageshow", function (e) {
+      if (e.persisted) refreshLessonList();
+    });
   }
 
   async function refreshLessonList() {
@@ -184,10 +244,33 @@
       (lesson.channel ? "<span>" + escapeHtml(lesson.channel) + "</span>" : "") +
       (duration ? "<span>⏱ " + formatTime(duration) + "</span>" : "") +
       (count ? "<span>문장 " + count + "개</span>" : "") +
-      "</div></div></a>" +
+      "</div>" +
+      lessonProgressHtml(id, count) +
+      "</div></a>" +
       '<button type="button" class="lesson-delete" data-delete-id="' + escapeHtml(id) +
       '" aria-label="레슨 삭제">삭제</button>' +
       "</article>"
+    );
+  }
+
+  function lessonProgressHtml(id, count) {
+    const p = getProgress(id);
+    if (!p.updated && !p.done.length) {
+      return '<div class="lesson-progress is-new"><span class="lp-text">아직 시작 안 함</span></div>';
+    }
+    const doneCount = count ? p.done.filter(function (n) { return n < count; }).length : p.done.length;
+    const pct = count ? Math.round((doneCount / count) * 100) : 0;
+    const complete = count && doneCount >= count;
+    return (
+      '<div class="lesson-progress' + (complete ? " is-complete" : "") + '">' +
+      '<div class="lp-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="' + pct +
+      '" aria-label="학습 진도 ' + pct + '%"><span style="width:' + pct + '%"></span></div>' +
+      '<div class="lp-row">' +
+      '<span class="lp-text"><strong>' + (complete ? "완료" : pct + "%") + "</strong> · " +
+      doneCount + (count ? " / " + count : "") + "문장</span>" +
+      '<span class="lp-last">문장 ' + (p.last + 1) + "에서 멈춤" +
+      (p.updated ? " · " + formatAgo(p.updated) : "") + "</span>" +
+      "</div></div>"
     );
   }
 
@@ -364,6 +447,8 @@
 
   const state = {
     lessonLang: "en",
+    lessonId: "",
+    done: new Set(),
     sentences: [],
     index: 0,
     // idle: nothing running / loop: repeating one sentence / free: normal YouTube playback
@@ -494,13 +579,73 @@
     applyLessonLanguageUi();
     $("lesson-root").hidden = false;
 
+    state.lessonId = v;
+    const saved = getProgress(v);
+    state.done = new Set(saved.done.filter(function (n) { return n < state.sentences.length; }));
+    const resumeAt = Math.min(saved.last, state.sentences.length - 1);
+
     renderSentenceList();
     bindControls();
     applySettingsUi();
-    selectSentence(0, { forceScroll: true });
+    renderProgress();
+    selectSentence(resumeAt, { forceScroll: true });
     updateControls();
+    if (resumeAt > 0) {
+      showResumeNote(resumeAt);
+    }
 
     loadYouTubeApi(String(data.youtubeId || data.id || v));
+  }
+
+  /* ---------- Progress ---------- */
+
+  function persistProgress() {
+    if (!state.lessonId) return;
+    saveProgress(state.lessonId, {
+      done: Array.from(state.done).sort(function (a, b) { return a - b; }),
+      last: state.index,
+    });
+  }
+
+  function markDone(i) {
+    if (i < 0 || i >= state.sentences.length || state.done.has(i)) return;
+    state.done.add(i);
+    const li = $("sentence-list").children[i];
+    if (li) li.classList.add("done");
+    renderProgress();
+    persistProgress();
+  }
+
+  function renderProgress() {
+    const total = state.sentences.length;
+    const n = state.done.size;
+    const pct = total ? Math.round((n / total) * 100) : 0;
+    $("list-count").textContent = n + " / " + total + "문장 · " + pct + "%";
+    const bar = $("list-progress");
+    if (bar) {
+      bar.firstElementChild.style.width = pct + "%";
+      bar.setAttribute("aria-valuenow", String(pct));
+    }
+    const reset = $("btn-reset-progress");
+    if (reset) reset.hidden = n === 0;
+  }
+
+  function showResumeNote(i) {
+    const el = $("resume-note");
+    if (!el) return;
+    el.querySelector(".resume-text").textContent = "지난번에 멈춘 문장 " + (i + 1) + "부터 이어서 볼게요.";
+    el.hidden = false;
+  }
+
+  function onResetProgress() {
+    if (!window.confirm("이 레슨의 학습 기록(완료 표시·마지막 위치)을 지울까요?")) return;
+    state.done.clear();
+    clearProgress(state.lessonId);
+    Array.prototype.forEach.call($("sentence-list").children, function (li) {
+      li.classList.remove("done");
+    });
+    renderProgress();
+    $("resume-note").hidden = true;
   }
 
   /* ---------- Rendering ---------- */
@@ -546,7 +691,7 @@
     const html = state.sentences
       .map(function (s, i) {
         return (
-          '<li class="s-item" data-index="' + i + '">' +
+          '<li class="s-item' + (state.done.has(i) ? " done" : "") + '" data-index="' + i + '">' +
           '<button type="button" class="s-btn" data-index="' + i + '" aria-label="' + (i + 1) + "번 문장 재생, " +
           formatTime(s.start) + '">' +
           '<span class="s-time">' + formatTime(s.start) + "</span>" +
@@ -649,6 +794,7 @@
     renderCurrent();
     scrollListTo(i, options.forceScroll);
     updateControls();
+    persistProgress();
   }
 
   function scrollListTo(i, force) {
@@ -816,6 +962,17 @@
     list.addEventListener("touchmove", markUserScroll, { passive: true });
 
     document.addEventListener("keydown", onKeyDown);
+
+    if ($("btn-reset-progress")) $("btn-reset-progress").addEventListener("click", onResetProgress);
+    if ($("resume-close")) {
+      $("resume-close").addEventListener("click", function () { $("resume-note").hidden = true; });
+    }
+    if ($("resume-start")) {
+      $("resume-start").addEventListener("click", function () {
+        $("resume-note").hidden = true;
+        selectSentence(0, { forceScroll: true });
+      });
+    }
   }
 
   function onKeyDown(e) {
@@ -916,6 +1073,7 @@
   function onSegmentEnd() {
     safeCall("pauseVideo");
     state.repeatDone += 1;
+    markDone(state.index);
     const target = state.settings.repeat;
 
     if (target !== 0 && state.repeatDone >= target) {
@@ -982,7 +1140,11 @@
       if (Date.now() < state.pausingUntil) return;
       if (state.mode !== "free") enterFreeMode();
       const idx = findIndexAt(t);
-      if (idx !== state.index) selectSentence(idx);
+      if (idx !== state.index) {
+        // Free playback flowed naturally into the next sentence: the previous one was heard in full.
+        if (idx === state.index + 1) markDone(state.index);
+        selectSentence(idx);
+      }
     }
   }
 

@@ -1589,3 +1589,144 @@ body.hide-reading .vocab-kopron {
 .s-en[lang="ja"] {
   line-height: 1.85;
 }
+
+/* ---------- Study progress ---------- */
+
+.lesson-progress {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.8rem;
+}
+
+.lesson-progress.is-new .lp-text {
+  color: var(--muted);
+}
+
+.lp-bar,
+.list-progress {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--surface-3);
+  overflow: hidden;
+}
+
+.lp-bar span,
+.list-progress span {
+  display: block;
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.lesson-progress.is-complete .lp-bar span {
+  background: var(--mint);
+}
+
+.lp-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 10px;
+}
+
+.lp-text {
+  color: var(--text-soft);
+  font-variant-numeric: tabular-nums;
+}
+
+.lp-text strong {
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.lesson-progress.is-complete .lp-text strong {
+  color: var(--mint);
+}
+
+.lp-last {
+  color: var(--muted);
+}
+
+.list-head-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.list-head .list-head-right span {
+  font-variant-numeric: tabular-nums;
+}
+
+.reset-progress {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.reset-progress:hover {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.list-progress {
+  margin: 0 18px 4px;
+  height: 4px;
+}
+
+.s-item.done .s-time {
+  color: var(--mint);
+}
+
+.s-item.done .s-time::after {
+  content: " ✓";
+  font-weight: 800;
+}
+
+.resume-note {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-line);
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+.resume-note[hidden] {
+  display: none;
+}
+
+.resume-text {
+  flex: 1;
+  min-width: 12em;
+}
+
+.resume-btn {
+  border: 0;
+  background: var(--surface);
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.resume-btn:hover {
+  background: var(--surface-2);
+}
