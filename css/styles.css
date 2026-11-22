@@ -601,11 +601,13 @@ button {
 }
 
 .hide-en .maskable[data-lang="en"]:not(.peek),
+.hide-en .maskable[data-lang="ja"]:not(.peek),
 .hide-ko .maskable[data-lang="ko"]:not(.peek) {
   cursor: pointer;
 }
 
 .hide-en .maskable[data-lang="en"]:not(.peek) .mask-text,
+.hide-en .maskable[data-lang="ja"]:not(.peek) .mask-text,
 .hide-ko .maskable[data-lang="ko"]:not(.peek) .mask-text {
   filter: blur(9px);
   opacity: 0.45;
@@ -613,6 +615,7 @@ button {
 }
 
 .hide-en .maskable[data-lang="en"]:not(.peek) .mask-hint,
+.hide-en .maskable[data-lang="ja"]:not(.peek) .mask-hint,
 .hide-ko .maskable[data-lang="ko"]:not(.peek) .mask-hint {
   display: flex;
   position: absolute;
@@ -1048,4 +1051,111 @@ body.hosted .lesson-delete {
 
 .pages-note a {
   color: #9ec1ff;
+}
+
+
+/* Language badge on lesson cards */
+.lang-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.1em 0.5em;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: rgba(120, 160, 255, 0.16);
+  color: #c5d6ff;
+  border: 1px solid rgba(150, 180, 255, 0.25);
+}
+.lang-badge.is-ja {
+  background: rgba(255, 140, 150, 0.16);
+  color: #ffc6c9;
+  border-color: rgba(255, 160, 170, 0.3);
+}
+.lesson-thumb .lang-badge {
+  position: absolute;
+  left: 0.55rem;
+  top: 0.5rem;
+  z-index: 1;
+}
+.lesson-meta .lang-badge {
+  margin-right: 0.15rem;
+}
+
+/* Add-form language select */
+.add-lang-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.7rem 0 0;
+}
+.add-lang-row .add-label {
+  margin: 0;
+  white-space: nowrap;
+}
+.add-lang-row select {
+  flex: 1;
+  min-width: 0;
+  appearance: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #e8eefc;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 10px;
+  padding: 0.45rem 2rem 0.45rem 0.8rem;
+  font: inherit;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%9ec1ff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+}
+.add-lang-row select:focus {
+  outline: none;
+  border-color: rgba(158, 193, 255, 0.7);
+}
+
+/* Japanese ruby / romaji */
+.cur-en .mask-text ruby,
+.s-en ruby,
+.vocab-phrase ruby {
+  ruby-position: over;
+  ruby-align: center;
+}
+.cur-en .mask-text ruby {
+  ruby-overhang: auto;
+}
+.cur-en .mask-text rt,
+.s-en rt,
+.vocab-phrase rt {
+  font-size: 0.55em;
+  font-weight: 500;
+  color: #9ec1ff;
+  letter-spacing: 0;
+}
+.s-en rt {
+  font-size: 0.5em;
+  color: #8aa4d6;
+}
+body.hide-reading rt {
+  display: none;
+}
+.cur-romaji {
+  margin: 0.15rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  color: #9aa8c7;
+  letter-spacing: 0.01em;
+}
+body.hide-reading .cur-romaji,
+.cur-romaji[hidden] {
+  display: none !important;
+}
+.vocab-reading {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  color: #9aa8c7;
+}
+.cur-en[lang="ja"] {
+  line-height: 2.05;
+}
+.s-en[lang="ja"] {
+  line-height: 1.85;
 }

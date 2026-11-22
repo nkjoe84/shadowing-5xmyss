@@ -17,6 +17,16 @@
       "duration": 2626,
       "sentenceCount": 567,
       "file": "data/ICotPfIDYmM.json"
+    },
+    {
+      "id": "xxlwgv-jVI8",
+      "lang": "ja",
+      "title": "Consent for kids （日本語版）",
+      "titleKo": "아이들을 위한 동의 교육",
+      "channel": "72 ハートネット (‪くもくん‬)",
+      "duration": 162,
+      "sentenceCount": 14,
+      "file": "data/xxlwgv-jVI8.json"
     }
   ]
 }

@@ -166,15 +166,20 @@
     const thumb = "https://i.ytimg.com/vi/" + encodeURIComponent(id) + "/hqdefault.jpg";
     const count = Number(lesson.sentenceCount) || 0;
     const duration = Number(lesson.duration) || 0;
+    const lang = (lesson.lang === "ja") ? "ja" : "en";
+    const badge = lang === "ja"
+      ? '<span class="lang-badge is-ja">일본어</span>'
+      : '<span class="lang-badge is-en">영어</span>';
     return (
       '<article class="lesson-card">' +
       '<a class="lesson-card-link" href="lesson.html?v=' + encodeURIComponent(id) + '">' +
       '<div class="lesson-thumb" style="background-image:url(\'' + escapeHtml(thumb) + '\')">' +
+      badge +
       (duration ? '<span class="duration-badge">' + formatTime(duration) + "</span>" : "") +
       "</div>" +
       '<div class="lesson-body">' +
       '<h3 class="lesson-title-ko">' + escapeHtml(lesson.titleKo || lesson.title || id) + "</h3>" +
-      (lesson.title ? '<p class="lesson-title-en" lang="en">' + escapeHtml(lesson.title) + "</p>" : "") +
+      (lesson.title ? '<p class="lesson-title-en"' + (lang === "ja" ? ' lang="ja"' : ' lang="en"') + ">" + escapeHtml(lesson.title) + "</p>" : "") +
       '<div class="lesson-meta">' +
       (lesson.channel ? "<span>" + escapeHtml(lesson.channel) + "</span>" : "") +
       (duration ? "<span>⏱ " + formatTime(duration) + "</span>" : "") +
@@ -226,7 +231,10 @@
       const res = await fetch("/api/lessons", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: url }),
+        body: JSON.stringify({
+          url: url,
+          lang: (($("lesson-lang") && $("lesson-lang").value) || "auto"),
+        }),
       });
       const data = await res.json().catch(function () { return {}; });
       if (!res.ok) {
@@ -355,6 +363,7 @@
     window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   const state = {
+    lessonLang: "en",
     sentences: [],
     index: 0,
     // idle: nothing running / loop: repeating one sentence / free: normal YouTube playback
@@ -378,7 +387,7 @@
   };
 
   function loadSettings() {
-    const defaults = { repeat: 3, speed: 1, hideEn: false, hideKo: false };
+    const defaults = { repeat: 3, speed: 1, hideEn: false, hideKo: false, hideReading: false };
     try {
       const saved = JSON.parse(localStorage.getItem(SETTINGS_KEY) || "{}");
       return {
@@ -386,6 +395,7 @@
         speed: SPEED_OPTIONS.indexOf(saved.speed) >= 0 ? saved.speed : defaults.speed,
         hideEn: saved.hideEn === true,
         hideKo: saved.hideKo === true,
+        hideReading: saved.hideReading === true,
       };
     } catch (e) {
       return defaults;
@@ -421,7 +431,10 @@
           start: start,
           end: Math.max(start + 0.2, Number(s.end)),
           en: String(s.en || ""),
+          ja: String(s.ja || ""),
           ko: String(s.ko || ""),
+          reading: Array.isArray(s.reading) ? s.reading : [],
+          romaji: String(s.romaji || ""),
           expressions: Array.isArray(s.expressions) ? s.expressions : [],
           words: Array.isArray(s.words) ? s.words : [],
         };
@@ -461,6 +474,8 @@
       return;
     }
 
+    state.lessonLang = data && data.lang === "ja" ? "ja" : "en";
+    document.body.dataset.lessonLang = state.lessonLang;
     state.sentences = normalizeSentences(data && data.sentences);
     if (!state.sentences.length) {
       showPageError("문장이 없어요", "<code>data/" + escapeHtml(v) + ".json</code>에 sentences 항목이 비어 있어요.");
@@ -469,9 +484,13 @@
 
     const titleKo = data.titleKo || data.title || v;
     $("title-ko").textContent = titleKo;
-    $("title-en").textContent = data.titleKo && data.title ? data.title : data.channel || "";
-    document.title = titleKo + " – 영어 쉐도잉";
+    const sub = data.titleKo && data.title ? data.title : data.channel || "";
+    $("title-en").textContent = sub;
+    if (state.lessonLang === "ja") $("title-en").setAttribute("lang", "ja");
+    else $("title-en").setAttribute("lang", "en");
+    document.title = titleKo + " – 쉐도잉";
     $("list-count").textContent = "총 " + state.sentences.length + "문장";
+    applyLessonLanguageUi();
     $("lesson-root").hidden = false;
 
     renderSentenceList();
@@ -485,6 +504,43 @@
 
   /* ---------- Rendering ---------- */
 
+  function originalText(s) {
+    if (state.lessonLang === "ja") return String((s && (s.ja || s.en)) || "");
+    return String((s && (s.en || s.ja)) || "");
+  }
+
+  function rubyHtml(sentence) {
+    const tokens = sentence && sentence.reading;
+    const fallback = escapeHtml(originalText(sentence || {}));
+    if (!Array.isArray(tokens) || !tokens.length) return fallback;
+    return tokens.map(function (tok) {
+      if (!tok || typeof tok !== "object") return "";
+      const t = escapeHtml(String(tok.t || tok.text || ""));
+      const r = String(tok.r || tok.reading || "").trim();
+      if (r && r !== String(tok.t || tok.text || "").trim()) {
+        return "<ruby>" + t + "<rt>" + escapeHtml(r) + "</rt></ruby>";
+      }
+      return t;
+    }).join("");
+  }
+
+  function applyLessonLanguageUi() {
+    const ja = state.lessonLang === "ja";
+    const enBtn = $("tgl-en");
+    const enLabel = $("tgl-en-label");
+    const hint = $("cur-en-hint");
+    const readingBtn = $("tgl-reading");
+    const cur = $("cur-en");
+    if (enLabel) enLabel.textContent = ja ? "일본어 숨기기" : "영어 숨기기";
+    if (enBtn) enBtn.setAttribute("aria-label", ja ? "일본어 숨기기" : "영어 숨기기");
+    if (hint) hint.textContent = ja ? "일본어 숨김 · 눌러서 잠깐 보기" : "영어 숨김 · 눌러서 잠깐 보기";
+    if (cur) {
+      cur.setAttribute("lang", ja ? "ja" : "en");
+      cur.setAttribute("data-lang", ja ? "ja" : "en");
+    }
+    if (readingBtn) readingBtn.hidden = !ja;
+  }
+
   function renderSentenceList() {
     const html = state.sentences
       .map(function (s, i) {
@@ -494,7 +550,8 @@
           formatTime(s.start) + '">' +
           '<span class="s-time">' + formatTime(s.start) + "</span>" +
           '<span class="s-text">' +
-          '<span class="s-en" lang="en">' + escapeHtml(s.en) + "</span>" +
+          '<span class="s-en" lang="' + (state.lessonLang === "ja" ? "ja" : "en") + '">' +
+          (state.lessonLang === "ja" ? rubyHtml(s) : escapeHtml(s.en)) + "</span>" +
           '<span class="s-ko">' + escapeHtml(s.ko) + "</span>" +
           "</span></button></li>"
         );
@@ -506,8 +563,16 @@
   function renderCurrent() {
     const s = state.sentences[state.index];
     const total = state.sentences.length;
-    $("cur-en").querySelector(".mask-text").textContent = s.en;
+    const origEl = $("cur-en").querySelector(".mask-text");
+    if (state.lessonLang === "ja") origEl.innerHTML = rubyHtml(s);
+    else origEl.textContent = s.en;
     $("cur-ko").querySelector(".mask-text").textContent = s.ko;
+    const ro = $("cur-romaji");
+    if (ro) {
+      const showRo = state.lessonLang === "ja" && !!(s.romaji || "").trim() && !state.settings.hideReading;
+      ro.hidden = !showRo;
+      ro.textContent = showRo ? s.romaji : "";
+    }
     $("cur-en").classList.remove("peek");
     $("cur-ko").classList.remove("peek");
     $("cur-index").textContent = "문장 " + (state.index + 1);
@@ -523,12 +588,16 @@
       return;
     }
     const cards = [];
+    const phrLang = state.lessonLang === "ja" ? "ja" : "en";
     s.expressions.forEach(function (e) {
       if (!e) return;
+      const phrase = e.phrase || e.ja || "";
+      if (!phrase) return;
       cards.push(
         '<div class="vocab-card">' +
         '<span class="vocab-kind">표현</span>' +
-        '<p class="vocab-phrase" lang="en">' + escapeHtml(e.phrase) + "</p>" +
+        '<p class="vocab-phrase" lang="' + phrLang + '">' + escapeHtml(phrase) + "</p>" +
+        (e.reading ? '<p class="vocab-reading">' + escapeHtml(e.reading) + "</p>" : "") +
         (e.meaning ? '<p class="vocab-meaning">' + escapeHtml(e.meaning) + "</p>" : "") +
         (e.note ? '<p class="vocab-note">' + escapeHtml(e.note) + "</p>" : "") +
         "</div>"
@@ -536,10 +605,13 @@
     });
     s.words.forEach(function (w) {
       if (!w) return;
+      const word = w.word || w.ja || "";
+      if (!word) return;
       cards.push(
         '<div class="vocab-card">' +
         '<span class="vocab-kind word">단어</span>' +
-        '<p class="vocab-phrase" lang="en">' + escapeHtml(w.word) + "</p>" +
+        '<p class="vocab-phrase" lang="' + phrLang + '">' + escapeHtml(word) + "</p>" +
+        (w.reading ? '<p class="vocab-reading">' + escapeHtml(w.reading) + "</p>" : "") +
         (w.meaning ? '<p class="vocab-meaning">' + escapeHtml(w.meaning) + "</p>" : "") +
         "</div>"
       );
@@ -621,8 +693,16 @@
     });
     document.body.classList.toggle("hide-en", s.hideEn);
     document.body.classList.toggle("hide-ko", s.hideKo);
+    document.body.classList.toggle("hide-reading", !!s.hideReading);
     $("tgl-en").setAttribute("aria-pressed", String(s.hideEn));
     $("tgl-ko").setAttribute("aria-pressed", String(s.hideKo));
+    if ($("tgl-reading")) $("tgl-reading").setAttribute("aria-pressed", String(!!s.hideReading));
+    const ro = $("cur-romaji");
+    if (ro && state.lessonLang === "ja") {
+      const cur = state.sentences[state.index];
+      const showRo = !s.hideReading && cur && !!(cur.romaji || "").trim();
+      ro.hidden = !showRo;
+    }
     updateSpeedUi();
   }
 
@@ -686,12 +766,19 @@
       saveSettings();
       applySettingsUi();
     });
+    if ($("tgl-reading")) {
+      $("tgl-reading").addEventListener("click", function () {
+        state.settings.hideReading = !state.settings.hideReading;
+        saveSettings();
+        applySettingsUi();
+      });
+    }
 
     // Tap a hidden line in the current panel to peek at it.
     ["cur-en", "cur-ko"].forEach(function (id) {
       $(id).addEventListener("click", function () {
         const lang = this.dataset.lang;
-        const hidden = lang === "en" ? state.settings.hideEn : state.settings.hideKo;
+        const hidden = (lang === "en" || lang === "ja") ? state.settings.hideEn : state.settings.hideKo;
         if (hidden) this.classList.toggle("peek");
       });
     });
