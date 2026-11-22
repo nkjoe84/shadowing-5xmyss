@@ -1,0 +1,22 @@
+{
+  "lessons": [
+    {
+      "id": "7g6TpUhZQJ0",
+      "title": "9 Questions That Will Reveal Who You Really Are | Hey Tablo Ep. 45",
+      "titleKo": "스스로에 대해 더 깊이 알게해주는 9가지 질문들",
+      "channel": "TABLO",
+      "duration": 2947,
+      "sentenceCount": 451,
+      "file": "data/7g6TpUhZQJ0.json"
+    },
+    {
+      "id": "ICotPfIDYmM",
+      "title": "Ranking Epik High Members from BEST to WORST | Hey Tablo Ep.47",
+      "titleKo": "Ranking Epik High Members from BEST to WORST | Hey Tablo Ep.47",
+      "channel": "TABLO",
+      "duration": 2626,
+      "sentenceCount": 567,
+      "file": "data/ICotPfIDYmM.json"
+    }
+  ]
+}

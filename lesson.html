@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1526">
+  <title>영어 쉐도잉 – 학습</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body data-page="lesson">
+  <header class="topbar">
+    <div class="wrap topbar-inner">
+      <a href="index.html" class="btn back" aria-label="레슨 목록으로 돌아가기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.4 5.4 14 4l-8 8 8 8 1.4-1.4L8.8 12z"/></svg>
+        <span class="back-text">목록</span>
+      </a>
+      <div class="titles">
+        <h1 id="title-ko">불러오는 중…</h1>
+        <p id="title-en" lang="en"></p>
+      </div>
+    </div>
+  </header>
+
+  <div id="page-error" class="wrap page-error-wrap" hidden></div>
+
+  <main id="lesson-root" class="wrap lesson-layout" hidden>
+    <section class="study-col" aria-label="학습 영역">
+      <div class="player-dock">
+        <div class="video-frame">
+          <div id="player"></div>
+          <div id="video-status" class="video-status" role="status">유튜브 플레이어를 불러오는 중…</div>
+        </div>
+
+        <div class="controls" role="group" aria-label="재생 컨트롤">
+          <div class="controls-main">
+            <button id="btn-prev" type="button" class="btn ctrl" aria-label="이전 문장">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+            </button>
+            <button id="btn-play" type="button" class="btn ctrl play primary" aria-label="재생">
+              <svg class="icon-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+              <svg class="icon-pause" viewBox="0 0 24 24" aria-hidden="true" hidden><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+            </button>
+            <button id="btn-next" type="button" class="btn ctrl" aria-label="다음 문장">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18l8.5-6L6 6zm10-12h2v12h-2z"/></svg>
+            </button>
+            <div class="position">
+              <span id="pos-label" class="pos-label" aria-live="off">– / –</span>
+              <span id="repeat-status" class="repeat-status"></span>
+            </div>
+          </div>
+
+          <div class="controls-options">
+            <div class="opt-group">
+              <span class="opt-label" id="lbl-repeat">반복</span>
+              <div class="seg" id="seg-repeat" role="group" aria-labelledby="lbl-repeat">
+                <button type="button" data-value="1" aria-label="1번 재생">1</button>
+                <button type="button" data-value="3" aria-label="3번 반복">3</button>
+                <button type="button" data-value="5" aria-label="5번 반복">5</button>
+                <button type="button" data-value="0" aria-label="무한 반복">무한</button>
+              </div>
+            </div>
+            <div class="opt-group">
+              <span class="opt-label" id="lbl-speed">속도</span>
+              <div class="seg" id="seg-speed" role="group" aria-labelledby="lbl-speed">
+                <button type="button" data-value="0.5" aria-label="0.5배속">0.5x</button>
+                <button type="button" data-value="0.75" aria-label="0.75배속">0.75x</button>
+                <button type="button" data-value="1" aria-label="1배속">1x</button>
+              </div>
+            </div>
+            <div class="opt-group toggles">
+              <button id="tgl-en" type="button" class="btn toggle" aria-pressed="false" aria-label="영어 숨기기">
+                <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6.5 5 2.7 9.4 1.5 12c1.2 2.6 5 7 10.5 7s9.3-4.4 10.5-7C21.3 9.4 17.5 5 12 5zm0 11.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-7a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg>
+                <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.8 4.2 4.2 2.8l17 17-1.4 1.4-3.2-3.2A11 11 0 0 1 12 19c-5.5 0-9.3-4.4-10.5-7a13 13 0 0 1 4-4.9zM12 5c5.5 0 9.3 4.4 10.5 7a13.4 13.4 0 0 1-3 4.1l-3.2-3.2A4.5 4.5 0 0 0 11.1 7.6L8.9 5.4A10.6 10.6 0 0 1 12 5zM7.6 9a4.5 4.5 0 0 0 7.4 5.9l-1.5-1.5A2.5 2.5 0 0 1 9.1 10.5z"/></svg>
+                영어 숨기기
+              </button>
+              <button id="tgl-ko" type="button" class="btn toggle" aria-pressed="false" aria-label="한글 숨기기">
+                <svg class="icon-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5C6.5 5 2.7 9.4 1.5 12c1.2 2.6 5 7 10.5 7s9.3-4.4 10.5-7C21.3 9.4 17.5 5 12 5zm0 11.5a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9zm0-7a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5z"/></svg>
+                <svg class="icon-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M2.8 4.2 4.2 2.8l17 17-1.4 1.4-3.2-3.2A11 11 0 0 1 12 19c-5.5 0-9.3-4.4-10.5-7a13 13 0 0 1 4-4.9zM12 5c5.5 0 9.3 4.4 10.5 7a13.4 13.4 0 0 1-3 4.1l-3.2-3.2A4.5 4.5 0 0 0 11.1 7.6L8.9 5.4A10.6 10.6 0 0 1 12 5zM7.6 9a4.5 4.5 0 0 0 7.4 5.9l-1.5-1.5A2.5 2.5 0 0 1 9.1 10.5z"/></svg>
+                한글 숨기기
+              </button>
+            </div>
+          </div>
+          <p id="speed-note" class="speed-note" role="status" hidden></p>
+        </div>
+      </div>
+
+      <article class="current-panel" aria-label="현재 문장">
+        <div class="current-meta">
+          <span id="cur-index"></span>
+          <span id="cur-time"></span>
+        </div>
+        <p id="cur-en" class="cur-en maskable" data-lang="en" lang="en">
+          <span class="mask-text"></span>
+          <span class="mask-hint">영어 숨김 · 눌러서 잠깐 보기</span>
+        </p>
+        <p id="cur-ko" class="cur-ko maskable" data-lang="ko">
+          <span class="mask-text"></span>
+          <span class="mask-hint">한글 숨김 · 눌러서 잠깐 보기</span>
+        </p>
+      </article>
+
+      <section class="vocab" aria-labelledby="vocab-title">
+        <h2 id="vocab-title">표현 &amp; 단어</h2>
+        <div id="vocab-body"></div>
+      </section>
+    </section>
+
+    <aside class="list-col" aria-labelledby="list-title">
+      <div class="list-head">
+        <h2 id="list-title">전체 문장</h2>
+        <span id="list-count"></span>
+      </div>
+      <ol id="sentence-list" class="sentence-list"></ol>
+    </aside>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
