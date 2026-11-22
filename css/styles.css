@@ -1137,16 +1137,43 @@ body.hosted .lesson-delete {
 body.hide-reading rt {
   display: none;
 }
+.cur-kopron {
+  margin: 0.2rem 0 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  color: #d5def0;
+  letter-spacing: 0.02em;
+  font-weight: 500;
+}
 .cur-romaji {
-  margin: 0.15rem 0 0;
-  font-size: 0.92rem;
-  line-height: 1.45;
-  color: #9aa8c7;
+  margin: 0.1rem 0 0;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: #7f8eaa;
   letter-spacing: 0.01em;
 }
+body.hide-reading .cur-kopron,
 body.hide-reading .cur-romaji,
+.cur-kopron[hidden],
 .cur-romaji[hidden] {
   display: none !important;
+}
+.s-kopron {
+  display: block;
+  margin-top: 0.15rem;
+  font-size: 0.86rem;
+  color: #c5d0e6;
+  font-weight: 500;
+}
+body.hide-reading .s-kopron,
+body.hide-reading .vocab-kopron {
+  display: none !important;
+}
+.vocab-kopron {
+  margin: 0.15rem 0 0;
+  font-size: 0.95rem;
+  color: #d5def0;
+  font-weight: 500;
 }
 .vocab-reading {
   margin: 0.15rem 0 0;

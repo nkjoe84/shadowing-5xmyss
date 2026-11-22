@@ -19,30 +19,35 @@
           "phrase": "かもしれない",
           "reading": "かもしれない",
           "meaning": "~일지도 모른다",
-          "note": "추측 표현"
+          "note": "추측 표현",
+          "ko_pron": "카모시레나이"
         },
         {
           "phrase": "〜ってことにしよう",
           "reading": "〜ってことにしよう",
           "meaning": "~라고 치자",
-          "note": "일단 그렇게 정하자는 구어 표현"
+          "note": "일단 그렇게 정하자는 구어 표현",
+          "ko_pron": "테코토니시요"
         }
       ],
       "words": [
         {
           "word": "とりあえず",
           "reading": "とりあえず",
-          "meaning": "일단, 우선"
+          "meaning": "일단, 우선",
+          "ko_pron": "토리아에즈"
         },
         {
           "word": "似る",
           "reading": "にる",
-          "meaning": "닮다"
+          "meaning": "닮다",
+          "ko_pron": "니루"
         },
         {
           "word": "体",
           "reading": "からだ",
-          "meaning": "몸"
+          "meaning": "몸",
+          "ko_pron": "카라다"
         }
       ],
       "ja": "これは君あまり似てないかもしれないけどとりあえず君ってことにしよこれは君の体",
@@ -83,7 +88,8 @@
           "r": "からだ"
         }
       ],
-      "romaji": "kore wa kimi amari nitenai kamoshirenai kedo toriaezu kimi tte koto ni shiyo kore wa kimi no karada"
+      "romaji": "kore wa kimi amari nitenai kamoshirenai kedo toriaezu kimi tte koto ni shiyo kore wa kimi no karada",
+      "ko_pron": "코레와 키미아마리니테나이카모시레나이케도토리아에즈키미테코토니시요코레와 키미노 카라다"
     },
     {
       "id": "s002",
@@ -95,19 +101,22 @@
           "phrase": "他の誰でもない",
           "reading": "ほかのだれでもない",
           "meaning": "다른 누구도 아닌",
-          "note": "강조 표현"
+          "note": "강조 표현",
+          "ko_pron": "호카노다레데모나이"
         }
       ],
       "words": [
         {
           "word": "決める",
           "reading": "きめる",
-          "meaning": "정하다"
+          "meaning": "정하다",
+          "ko_pron": "키메루"
         },
         {
           "word": "他",
           "reading": "ほか",
-          "meaning": "다른 것, 그 밖"
+          "meaning": "다른 것, 그 밖",
+          "ko_pron": "호카"
         }
       ],
       "ja": "君の体をどうするかは君が決める君の体のことを決められるのは他の誰でもないんだ",
@@ -176,7 +185,8 @@
           "t": "でもないんだ"
         }
       ],
-      "romaji": "kimi no karada o dou suru ka wa kimi ga kimeru kimi no karada no koto o kimerareru no wa hoka no dare demo nain da"
+      "romaji": "kimi no karada o dou suru ka wa kimi ga kimeru kimi no karada no koto o kimerareru no wa hoka no dare demo nain da",
+      "ko_pron": "키미노 카라다오도스루카와 키미가 키메루키미노 카라다노코토오 키메라레루노와 호카노 다레데모나인다"
     },
     {
       "id": "s003",
@@ -188,19 +198,22 @@
           "phrase": "〜だけなんだ",
           "reading": "〜だけなんだ",
           "meaning": "~뿐이야",
-          "note": "한정 강조"
+          "note": "한정 강조",
+          "ko_pron": "다케난다"
         }
       ],
       "words": [
         {
           "word": "友達",
           "reading": "ともだち",
-          "meaning": "친구"
+          "meaning": "친구",
+          "ko_pron": "토모다치"
         },
         {
           "word": "大人",
           "reading": "おとな",
-          "meaning": "어른"
+          "meaning": "어른",
+          "ko_pron": "오토나"
         }
       ],
       "ja": "友達じゃない知らない人でもない知ってる大人でもない君の体をどうするか決められるのは他の人じゃない君だけなんだ",
@@ -283,7 +296,8 @@
           "t": "だけなんだ"
         }
       ],
-      "romaji": "tomodachi janai shiranai hito demo nai shitteru otona demo nai kimi no karada o dou suru ka kimerareru no wa hoka no hito janai kimi dake nan da"
+      "romaji": "tomodachi janai shiranai hito demo nai shitteru otona demo nai kimi no karada o dou suru ka kimerareru no wa hoka no hito janai kimi dake nan da",
+      "ko_pron": "토모다치쟈나이시라나이히토데모나이시테루오토나데모나이키미노 카라다오도스루카 키메라레루노와 호카노 히토쟈나이키미다케난다"
     },
     {
       "id": "s004",
@@ -295,25 +309,29 @@
           "phrase": "〜って言うんだよ",
           "reading": "〜っていうんだよ",
           "meaning": "~라고 해",
-          "note": "용어를 설명할 때"
+          "note": "용어를 설명할 때",
+          "ko_pron": "테이운다요"
         },
         {
           "phrase": "〜もいれば",
           "reading": "〜もいれば",
           "meaning": "~도 있고",
-          "note": "대비 나열 표현"
+          "note": "대비 나열 표현",
+          "ko_pron": "모이레바"
         }
       ],
       "words": [
         {
           "word": "自己決定",
           "reading": "じこけってい",
-          "meaning": "자기결정"
+          "meaning": "자기결정",
+          "ko_pron": "지코켓테이"
         },
         {
           "word": "違う",
           "reading": "ちがう",
-          "meaning": "다르다"
+          "meaning": "다르다",
+          "ko_pron": "치가우"
         }
       ],
       "ja": "これを体の自己決定って言うんだよそれがどういってことなんだ人は皆違うハグが大好きな人もいれば",
@@ -378,7 +396,8 @@
           "t": "もいれば"
         }
       ],
-      "romaji": "kore o karada no jiko kettei tte iun da yo sore ga dou itte koto nan da hito wa minna chigau hagu ga daisuki na hito mo ireba"
+      "romaji": "kore o karada no jiko kettei tte iun da yo sore ga dou itte koto nan da hito wa minna chigau hagu ga daisuki na hito mo ireba",
+      "ko_pron": "코레오 카라다노 지코켓테이테이운다요소레가도잇테코토난다히토와 민나치가우하구가 다이스키나 히토모이레바"
     },
     {
       "id": "s005",
@@ -390,25 +409,29 @@
           "phrase": "好き嫌い",
           "reading": "すききらい",
           "meaning": "호불호",
-          "note": "좋고 싫음"
+          "note": "좋고 싫음",
+          "ko_pron": "스키키라이"
         },
         {
           "phrase": "〜していいの？",
           "reading": "〜していいの",
           "meaning": "~해도 돼?",
-          "note": "허락을 묻는 구어"
+          "note": "허락을 묻는 구어",
+          "ko_pron": "시테이이노"
         }
       ],
       "words": [
         {
           "word": "大嫌い",
           "reading": "だいきらい",
-          "meaning": "아주 싫음"
+          "meaning": "아주 싫음",
+          "ko_pron": "다이키라이"
         },
         {
           "word": "それぞれ",
           "reading": "それぞれ",
-          "meaning": "각자"
+          "meaning": "각자",
+          "ko_pron": "소레조레"
         }
       ],
       "ja": "ハグが大嫌いな人もいるフェインなそれぞれ自分の好き嫌いってあるよねじゃあハグが好きだったらだるいねもハグしていいの",
@@ -459,7 +482,8 @@
           "t": "きだったらだるいねもハグしていいの"
         }
       ],
-      "romaji": "hagu ga daikirai na hito mo iru fein na sorezore jibun no sukikirai tte aru yo ne jaa hagu ga suki dattara darui ne mo hagu shite ii no"
+      "romaji": "hagu ga daikirai na hito mo iru fein na sorezore jibun no sukikirai tte aru yo ne jaa hagu ga suki dattara darui ne mo hagu shite ii no",
+      "ko_pron": "하구가 다이키라이나 히토모이루페인나소레조레지분노 스키키라잇테아루요네쟈하구가 스키닷타라다루이네모하구시테이이노"
     },
     {
       "id": "s006",
@@ -471,25 +495,29 @@
           "phrase": "〜ばいい",
           "reading": "〜ばいい",
           "meaning": "~하면 돼",
-          "note": "해결 방법 제시"
+          "note": "해결 방법 제시",
+          "ko_pron": "바이이"
         },
         {
           "phrase": "〜してもいい？",
           "reading": "〜してもいい",
           "meaning": "~해도 돼?",
-          "note": "허락 구하기"
+          "note": "허락 구하기",
+          "ko_pron": "시테모이이"
         }
       ],
       "words": [
         {
           "word": "同意",
           "reading": "どうい",
-          "meaning": "동의"
+          "meaning": "동의",
+          "ko_pron": "도이"
         },
         {
           "word": "必要",
           "reading": "ひつよう",
-          "meaning": "필요"
+          "meaning": "필요",
+          "ko_pron": "히츠요"
         }
       ],
       "ja": "違うよね同意が必要なんだじゃあどうしたらその人が同意してくれるか分かる聞けばいいハグしてもいい",
@@ -544,7 +572,8 @@
           "t": "けばいいハグしてもいい"
         }
       ],
-      "romaji": "chigau yo ne doui ga hitsuyou nan da jaa dou shitara sono hito ga doui shite kureru ka wakaru kikeba ii hagu shite mo ii"
+      "romaji": "chigau yo ne doui ga hitsuyou nan da jaa dou shitara sono hito ga doui shite kureru ka wakaru kikeba ii hagu shite mo ii",
+      "ko_pron": "치가우요네 도이가 히츠요난다쟈도시타라소노 히토가 도이시테쿠레루카 와카루키케바이이하구시테모이이"
     },
     {
       "id": "s007",
@@ -556,25 +585,29 @@
           "phrase": "ちょっと嫌かな",
           "reading": "ちょっといやかな",
           "meaning": "좀 싫은데",
-          "note": "부드러운 거절"
+          "note": "부드러운 거절",
+          "ko_pron": "촛토이야카나"
         },
         {
           "phrase": "〜じゃなくて",
           "reading": "〜じゃなくて",
           "meaning": "~가 아니라",
-          "note": "대조 표현"
+          "note": "대조 표현",
+          "ko_pron": "쟈나쿠테"
         }
       ],
       "words": [
         {
           "word": "手を繋ぐ",
           "reading": "てをつなぐ",
-          "meaning": "손을 잡다"
+          "meaning": "손을 잡다",
+          "ko_pron": "테오츠나구"
         },
         {
           "word": "嫌",
           "reading": "いや",
-          "meaning": "싫음"
+          "meaning": "싫음",
+          "ko_pron": "이야"
         }
       ],
       "ja": "うんいいよ手を繋いでもいいちょっと嫌かな分かったもしハグしてもいいって聞いた時いいよじゃなくてうーん",
@@ -625,7 +658,8 @@
           "t": "いいよじゃなくてうーん"
         }
       ],
-      "romaji": "un ii yo te o tsunaide mo ii chotto iya ka na wakatta moshi hagu shite mo ii tte kiita toki ii yo ja nakute uun"
+      "romaji": "un ii yo te o tsunaide mo ii chotto iya ka na wakatta moshi hagu shite mo ii tte kiita toki ii yo ja nakute uun",
+      "ko_pron": "운이이요 테오 츠나이데모이이촛토 이야카나 와캇타모시하구시테모이잇테키이타토키이이요쟈나쿠테운"
     },
     {
       "id": "s008",
@@ -637,20 +671,23 @@
           "phrase": "〜ってことだよ",
           "reading": "〜ってことだよ",
           "meaning": "~라는 뜻이야",
-          "note": "의미 설명"
+          "note": "의미 설명",
+          "ko_pron": "테코토다요"
         },
         {
           "phrase": "〜でしょ",
           "reading": "〜でしょ",
           "meaning": "~지?",
-          "note": "동의를 구하는 말투"
+          "note": "동의를 구하는 말투",
+          "ko_pron": "데쇼"
         }
       ],
       "words": [
         {
           "word": "簡単",
           "reading": "かんたん",
-          "meaning": "간단함"
+          "meaning": "간단함",
+          "ko_pron": "칸탄"
         }
       ],
       "ja": "どうかななんて言われたら同意してないってことだよとっても簡単でしょ",
@@ -680,7 +717,8 @@
           "t": "でしょ"
         }
       ],
-      "romaji": "dou ka na nante iwaretara doui shitenai tte koto da yo tottemo kantan desho"
+      "romaji": "dou ka na nante iwaretara doui shitenai tte koto da yo tottemo kantan desho",
+      "ko_pron": "도카나난테이와레타라도이시테나잇테코토다요톳테모 칸탄데쇼"
     },
     {
       "id": "s009",
@@ -692,30 +730,35 @@
           "phrase": "〜たり〜たり",
           "reading": "〜たり〜たり",
           "meaning": "~하거나 ~하거나",
-          "note": "동작 나열"
+          "note": "동작 나열",
+          "ko_pron": "타리타리"
         },
         {
           "phrase": "言わされる",
           "reading": "いわされる",
           "meaning": "억지로 말하게 되다",
-          "note": "사역수동형"
+          "note": "사역수동형",
+          "ko_pron": "이와사레루"
         }
       ],
       "words": [
         {
           "word": "脅す",
           "reading": "おどす",
-          "meaning": "협박하다"
+          "meaning": "협박하다",
+          "ko_pron": "오도스"
         },
         {
           "word": "答え",
           "reading": "こたえ",
-          "meaning": "대답"
+          "meaning": "대답",
+          "ko_pron": "코타에"
         },
         {
           "word": "本当",
           "reading": "ほんとう",
-          "meaning": "진짜"
+          "meaning": "진짜",
+          "ko_pron": "혼토"
         }
       ],
       "ja": "同意するか聴いてその答えを聞くんだでも何がつきなものをくれたり脅してきたりしていいよって言わされたらそれは本当の同意じゃない",
@@ -784,7 +827,8 @@
           "t": "じゃない"
         }
       ],
-      "romaji": "doui suru ka kiite sono kotae o kikun da demo nani ga tsuki na mono o kuretari odoshite kitari shite ii yo tte iwasaretara sore wa hontou no doui janai"
+      "romaji": "doui suru ka kiite sono kotae o kikun da demo nani ga tsuki na mono o kuretari odoshite kitari shite ii yo tte iwasaretara sore wa hontou no doui janai",
+      "ko_pron": "도이스루카 키이테소노 코타에오 키쿤다데모 나니가츠키나모노오쿠레타리오도시테키타리시테이이욧테이와사레타라소레와 혼토노 도이쟈나이"
     },
     {
       "id": "s010",
@@ -796,25 +840,29 @@
           "phrase": "〜ことがあるかも",
           "reading": "〜ことがあるかも",
           "meaning": "~할 때도 있을지 몰라",
-          "note": "가능성 표현"
+          "note": "가능성 표현",
+          "ko_pron": "코토가루카모"
         },
         {
           "phrase": "〜しなさい",
           "reading": "〜しなさい",
           "meaning": "~하렴, ~해라",
-          "note": "윗사람의 지시"
+          "note": "윗사람의 지시",
+          "ko_pron": "시나사이"
         }
       ],
       "words": [
         {
           "word": "お願い",
           "reading": "おねがい",
-          "meaning": "부탁"
+          "meaning": "부탁",
+          "ko_pron": "오네가이"
         },
         {
           "word": "おばあちゃん",
           "reading": "おばあちゃん",
-          "meaning": "할머니"
+          "meaning": "할머니",
+          "ko_pron": "오바찬"
         }
       ],
       "ja": "それから大人からお願いされることがあるかもおばあちゃんにさよならのキスしなさいとかでもどうするか決めるのは君",
@@ -851,7 +899,8 @@
           "r": "きみ"
         }
       ],
-      "romaji": "sorekara otona kara onegai sareru koto ga aru kamo obaachan ni sayonara no kisu shinasai toka demo dou suru ka kimeru no wa kimi"
+      "romaji": "sorekara otona kara onegai sareru koto ga aru kamo obaachan ni sayonara no kisu shinasai toka demo dou suru ka kimeru no wa kimi",
+      "ko_pron": "소레카라오토나카라오네가이사레루코토가루카모바찬니사요나라노키스시나사이토카데모도스루카 키메루노와 키미"
     },
     {
       "id": "s011",
@@ -863,30 +912,35 @@
           "phrase": "代わりに",
           "reading": "かわりに",
           "meaning": "대신에",
-          "note": "원래 발화는 '代わりに手を振るよ'"
+          "note": "원래 발화는 '代わりに手を振るよ'",
+          "ko_pron": "카와리니"
         },
         {
           "phrase": "〜って言っていいんだ",
           "reading": "〜っていっていいんだ",
           "meaning": "~라고 말해도 돼",
-          "note": "허용 표현"
+          "note": "허용 표현",
+          "ko_pron": "테잇테이인다"
         }
       ],
       "words": [
         {
           "word": "手を振る",
           "reading": "てをふる",
-          "meaning": "손을 흔들다"
+          "meaning": "손을 흔들다",
+          "ko_pron": "테오후루"
         },
         {
           "word": "書類",
           "reading": "しょるい",
-          "meaning": "서류"
+          "meaning": "서류",
+          "ko_pron": "쇼루이"
         },
         {
           "word": "例えば",
           "reading": "たとえば",
-          "meaning": "예를 들면"
+          "meaning": "예를 들면",
+          "ko_pron": "타토에바"
         }
       ],
       "ja": "それちょっと家だな変わりいたを振るよって言っていいんだ子供が同意できないこともある例えば難しい書類に3位するとか占拠するとか",
@@ -972,7 +1026,8 @@
           "t": "するとか"
         }
       ],
-      "romaji": "sore chotto ie da na kawari ita o furu yo tte itte iin da kodomo ga doui dekinai koto mo aru tatoeba muzukashii shorui ni san'i suru toka senkyo suru toka"
+      "romaji": "sore chotto ie da na kawari ita o furu yo tte itte iin da kodomo ga doui dekinai koto mo aru tatoeba muzukashii shorui ni san'i suru toka senkyo suru toka",
+      "ko_pron": "소레촛토 이에다나 카와리이타오 후루욧테이테이인다코도모가 도이데키나이코토모아루타토에바무즈카시이쇼루이니 산이스루토카 센쿄스루토카"
     },
     {
       "id": "s012",
@@ -984,19 +1039,22 @@
           "phrase": "だって〜なんだから",
           "reading": "だって〜なんだから",
           "meaning": "왜냐하면 ~이니까",
-          "note": "이유 강조 구어"
+          "note": "이유 강조 구어",
+          "ko_pron": "닷테난다카라"
         }
       ],
       "words": [
         {
           "word": "子供",
           "reading": "こども",
-          "meaning": "아이"
+          "meaning": "아이",
+          "ko_pron": "코도모"
         },
         {
           "word": "もし",
           "reading": "もし",
-          "meaning": "만약"
+          "meaning": "만약",
+          "ko_pron": "모시"
         }
       ],
       "ja": "エッチな事もだよだって子供なんだからだからもし子供が同意できないことをする大人がいたらそれはよくないこと",
@@ -1040,7 +1098,8 @@
           "t": "がいたらそれはよくないこと"
         }
       ],
-      "romaji": "etchi na koto mo da yo datte kodomo nan dakara dakara moshi kodomo ga doui dekinai koto o suru otona ga itara sore wa yokunai koto"
+      "romaji": "etchi na koto mo da yo datte kodomo nan dakara dakara moshi kodomo ga doui dekinai koto o suru otona ga itara sore wa yokunai koto",
+      "ko_pron": "엣치나 코토모다요닷테코도모난다카라다카라모시코도모가 도이데키나이코토오스루오토나가이타라소레하요쿠나이코토"
     },
     {
       "id": "s013",
@@ -1052,14 +1111,16 @@
           "phrase": "悪いのは〜",
           "reading": "わるいのは〜",
           "meaning": "잘못한 건 ~야",
-          "note": "책임 소재 강조"
+          "note": "책임 소재 강조",
+          "ko_pron": "와루이노와"
         }
       ],
       "words": [
         {
           "word": "悪い",
           "reading": "わるい",
-          "meaning": "나쁘다"
+          "meaning": "나쁘다",
+          "ko_pron": "와루이"
         }
       ],
       "ja": "悪いのは大人子どもは悪くないよ",
@@ -1093,7 +1154,8 @@
           "t": "くないよ"
         }
       ],
-      "romaji": "warui no wa otona kodomo wa warukunai yo"
+      "romaji": "warui no wa otona kodomo wa warukunai yo",
+      "ko_pron": "와루이노와 오토나코도모와 와루쿠나이요"
     },
     {
       "id": "s014",
@@ -1105,30 +1167,35 @@
           "phrase": "大事なことは〜こと",
           "reading": "だいじなことは〜こと",
           "meaning": "중요한 건 ~하는 것",
-          "note": "핵심 강조 구문"
+          "note": "핵심 강조 구문",
+          "ko_pron": "다이지나코토하코토"
         },
         {
           "phrase": "〜みたいに",
           "reading": "〜みたいに",
           "meaning": "~처럼",
-          "note": "예시 비유"
+          "note": "예시 비유",
+          "ko_pron": "미타이니"
         }
       ],
       "words": [
         {
           "word": "信用",
           "reading": "しんよう",
-          "meaning": "신용, 믿음"
+          "meaning": "신용, 믿음",
+          "ko_pron": "신요"
         },
         {
           "word": "大事",
           "reading": "だいじ",
-          "meaning": "중요함"
+          "meaning": "중요함",
+          "ko_pron": "다이지"
         },
         {
           "word": "先生",
           "reading": "せんせい",
-          "meaning": "선생님"
+          "meaning": "선생님",
+          "ko_pron": "센세이"
         }
       ],
       "ja": "大事なことはそういうことがあったら先生みたいに信用できる大人に話すことどうしてってそれは君の体をどうするか決められるのは君だけだからどういって大事なことなんだ",
@@ -1204,7 +1271,8 @@
           "t": "なことなんだ"
         }
       ],
-      "romaji": "daiji na koto wa sou iu koto ga attara sensei mitai ni shinyou dekiru otona ni hanasu koto doushite tte sore wa kimi no karada o dou suru ka kimerareru no wa kimi dake dakara dou itte daiji na koto nan da"
+      "romaji": "daiji na koto wa sou iu koto ga attara sensei mitai ni shinyou dekiru otona ni hanasu koto doushite tte sore wa kimi no karada o dou suru ka kimerareru no wa kimi dake dakara dou itte daiji na koto nan da",
+      "ko_pron": "다이지나코토하소이우코토갓타라센세이미타이니 신요데키루오토나니 하나스코토도시텟테소레와 키미노 카라다오도스루카 키메라레루노와 키미다케다카라도잇테다이지나코토난다"
     }
   ]
 }

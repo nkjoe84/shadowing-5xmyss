@@ -435,6 +435,7 @@
           ko: String(s.ko || ""),
           reading: Array.isArray(s.reading) ? s.reading : [],
           romaji: String(s.romaji || ""),
+          ko_pron: String(s.ko_pron || ""),
           expressions: Array.isArray(s.expressions) ? s.expressions : [],
           words: Array.isArray(s.words) ? s.words : [],
         };
@@ -552,6 +553,9 @@
           '<span class="s-text">' +
           '<span class="s-en" lang="' + (state.lessonLang === "ja" ? "ja" : "en") + '">' +
           (state.lessonLang === "ja" ? rubyHtml(s) : escapeHtml(s.en)) + "</span>" +
+          (state.lessonLang === "ja" && (s.ko_pron || "").trim()
+            ? '<span class="s-kopron">' + escapeHtml(s.ko_pron) + "</span>"
+            : "") +
           '<span class="s-ko">' + escapeHtml(s.ko) + "</span>" +
           "</span></button></li>"
         );
@@ -567,9 +571,16 @@
     if (state.lessonLang === "ja") origEl.innerHTML = rubyHtml(s);
     else origEl.textContent = s.en;
     $("cur-ko").querySelector(".mask-text").textContent = s.ko;
+    const hideR = !!state.settings.hideReading;
+    const kp = $("cur-kopron");
+    if (kp) {
+      const showKp = state.lessonLang === "ja" && !!(s.ko_pron || "").trim() && !hideR;
+      kp.hidden = !showKp;
+      kp.textContent = showKp ? s.ko_pron : "";
+    }
     const ro = $("cur-romaji");
     if (ro) {
-      const showRo = state.lessonLang === "ja" && !!(s.romaji || "").trim() && !state.settings.hideReading;
+      const showRo = state.lessonLang === "ja" && !!(s.romaji || "").trim() && !hideR;
       ro.hidden = !showRo;
       ro.textContent = showRo ? s.romaji : "";
     }
@@ -597,6 +608,7 @@
         '<div class="vocab-card">' +
         '<span class="vocab-kind">표현</span>' +
         '<p class="vocab-phrase" lang="' + phrLang + '">' + escapeHtml(phrase) + "</p>" +
+        (e.ko_pron ? '<p class="vocab-kopron">' + escapeHtml(e.ko_pron) + "</p>" : "") +
         (e.reading ? '<p class="vocab-reading">' + escapeHtml(e.reading) + "</p>" : "") +
         (e.meaning ? '<p class="vocab-meaning">' + escapeHtml(e.meaning) + "</p>" : "") +
         (e.note ? '<p class="vocab-note">' + escapeHtml(e.note) + "</p>" : "") +
@@ -611,6 +623,7 @@
         '<div class="vocab-card">' +
         '<span class="vocab-kind word">단어</span>' +
         '<p class="vocab-phrase" lang="' + phrLang + '">' + escapeHtml(word) + "</p>" +
+        (w.ko_pron ? '<p class="vocab-kopron">' + escapeHtml(w.ko_pron) + "</p>" : "") +
         (w.reading ? '<p class="vocab-reading">' + escapeHtml(w.reading) + "</p>" : "") +
         (w.meaning ? '<p class="vocab-meaning">' + escapeHtml(w.meaning) + "</p>" : "") +
         "</div>"
@@ -697,11 +710,18 @@
     $("tgl-en").setAttribute("aria-pressed", String(s.hideEn));
     $("tgl-ko").setAttribute("aria-pressed", String(s.hideKo));
     if ($("tgl-reading")) $("tgl-reading").setAttribute("aria-pressed", String(!!s.hideReading));
-    const ro = $("cur-romaji");
-    if (ro && state.lessonLang === "ja") {
+    if (state.lessonLang === "ja") {
       const cur = state.sentences[state.index];
-      const showRo = !s.hideReading && cur && !!(cur.romaji || "").trim();
-      ro.hidden = !showRo;
+      const kp = $("cur-kopron");
+      if (kp) {
+        const showKp = !s.hideReading && cur && !!(cur.ko_pron || "").trim();
+        kp.hidden = !showKp;
+      }
+      const ro = $("cur-romaji");
+      if (ro) {
+        const showRo = !s.hideReading && cur && !!(cur.romaji || "").trim();
+        ro.hidden = !showRo;
+      }
     }
     updateSpeedUi();
   }
